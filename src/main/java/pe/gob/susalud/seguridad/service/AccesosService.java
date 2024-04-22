@@ -5,7 +5,7 @@ import pe.gob.susalud.seguridad.model.AccesosRequest;
 import java.sql.ResultSet;
 
 public interface AccesosService {
-    public ResultSet ListadoEncargaturasSinPerfil(AccesosRequest request);
+    public void ListadoEncargaturasSinPerfil(AccesosRequest request);
     public ResultSet ListadoEncargaturasConPerfil(AccesosRequest request);
     public ResultSet AsignaEncargaturaPerfil(AccesosRequest request);
     public ResultSet EliminaEncargaturaPerfil(AccesosRequest request);

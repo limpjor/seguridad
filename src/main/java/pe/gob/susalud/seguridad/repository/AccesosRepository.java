@@ -4,15 +4,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import pe.gob.susalud.seguridad.entity.SegPersona;
 
 import java.sql.ResultSet;
+import java.util.List;
+import java.util.Map;
 
 
 @Repository
-public interface AccesosRepository extends JpaRepository<AccesosRepository, Integer> {
+public interface AccesosRepository extends JpaRepository<SegPersona, Integer> {
 
     @Procedure(name = "seg_sp_ListadoEncargaturas_sin_perfil")
-    ResultSet ListadoEncargaturasSinPerfil(@Param("codi_pfl") Integer codiPfl, @Param("ctipo") String tipo, @Param("snombre") String nombre);
+    List<Map<String,Object>> ListadoEncargaturasSinPerfil(@Param("codi_pfl") Integer codiPfl, @Param("ctipo") String tipo, @Param("snombre") String nombre);
 
     @Procedure(name = "seg_sp_ListadoEncargaturas_con_perfil")
     ResultSet ListadoEncargaturasConPerfil(@Param("codi_pfl") Integer codiPfl);

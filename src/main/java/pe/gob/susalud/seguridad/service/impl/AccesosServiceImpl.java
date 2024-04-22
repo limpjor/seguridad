@@ -7,6 +7,8 @@ import pe.gob.susalud.seguridad.repository.AccesosRepository;
 import pe.gob.susalud.seguridad.service.AccesosService;
 
 import java.sql.ResultSet;
+import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -21,8 +23,8 @@ public class AccesosServiceImpl implements AccesosService {
 
 
     @Override
-    public ResultSet ListadoEncargaturasSinPerfil(AccesosRequest request) {
-        return accesosRepository.ListadoEncargaturasSinPerfil(
+    public void ListadoEncargaturasSinPerfil(AccesosRequest request) {
+        List<Map<String,Object>> resp =  accesosRepository.ListadoEncargaturasSinPerfil(
                 request.getCodiPfl(), request.getTipoAcc().trim(), request.getNombre().trim());
     }
 
