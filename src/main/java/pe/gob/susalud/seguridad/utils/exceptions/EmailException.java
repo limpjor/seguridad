@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package pe.gob.susalud.servicio.seguridad.utils.exceptions;
+package pe.gob.susalud.seguridad.utils.exceptions;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pe.gob.susalud.servicio.seguridad.utils.exceptions;
+package pe.gob.susalud.seguridad.utils.exceptions;
 
 
 public class NotFoundException extends MainException {

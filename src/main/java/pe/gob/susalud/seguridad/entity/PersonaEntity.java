@@ -6,14 +6,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "SEG_PERSONA", schema = "dbo")
-
-public class SegPersona {
+public class PersonaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CODI_PER")
@@ -88,5 +91,35 @@ public class SegPersona {
     @Column(name = "vEMAIL_PER2")
     private String email2;
 
-    // Getters y setters
+    @Builder(builderMethodName = "personaEntityBuilder")
+    public PersonaEntity(Integer codigo, Integer codigoEntidad, String nombreLargo, String apellidoPaterno, String apellidoMaterno, String nombre, String dni, String grado, String inicial, String email, Date fechaRegistro, Date fechaActualizacion, String telefono, String cargo, Integer codigoGrupo, String departamento, String provincia, String distrito, Date fechaNacimiento, Character sexo, Character tipoDocumento, String loginUsuarioRegistro, String loginUsuarioActualizacion, String email2) {
+        this.codigo = codigo;
+        this.codigoEntidad = codigoEntidad;
+        this.nombreLargo = nombreLargo;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.nombre = nombre;
+        this.dni = dni;
+        this.grado = grado;
+        this.inicial = inicial;
+        this.email = email;
+        this.fechaRegistro = fechaRegistro;
+        this.fechaActualizacion = fechaActualizacion;
+        this.telefono = telefono;
+        this.cargo = cargo;
+        this.codigoGrupo = codigoGrupo;
+        this.departamento = departamento;
+        this.provincia = provincia;
+        this.distrito = distrito;
+        this.fechaNacimiento = fechaNacimiento;
+        this.sexo = sexo;
+        this.tipoDocumento = tipoDocumento;
+        this.loginUsuarioRegistro = loginUsuarioRegistro;
+        this.loginUsuarioActualizacion = loginUsuarioActualizacion;
+        this.email2 = email2;
+    }
+
+    public PersonaEntity() {
+
+    }
 }

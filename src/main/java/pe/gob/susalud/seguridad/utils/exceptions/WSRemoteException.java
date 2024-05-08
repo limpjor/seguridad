@@ -1,4 +1,4 @@
-package pe.gob.susalud.servicio.seguridad.utils.exceptions;
+package pe.gob.susalud.seguridad.utils.exceptions;
 
 import org.springframework.http.HttpStatus;
 
