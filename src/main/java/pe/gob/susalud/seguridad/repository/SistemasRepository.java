@@ -8,6 +8,7 @@ import pe.gob.susalud.seguridad.constant.Constantes;
 import pe.gob.susalud.seguridad.entity.SistemaEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SistemasRepository extends JpaRepository<SistemaEntity, Integer> {
@@ -30,4 +31,5 @@ public interface SistemasRepository extends JpaRepository<SistemaEntity, Integer
     @Procedure(procedureName = Constantes.SP_ELIMINA_SISTEMA)
     void EliminaSistema(@Param("codi_sis") Integer codiSis);
 
+    Optional<SistemaEntity> findById(Integer codiSis);
 }

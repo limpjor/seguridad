@@ -194,7 +194,7 @@ public class Constantes {
     //otros
     public static final String REGISTRO_OK = "Registro exitoso.";
     public static final String ELIMINACION_OK = "Eliminacion exitosa.";
-    public static final String MODIFICACION_OK = "Eliminacion exitosa.";
+    public static final String MODIFICACION_OK = "Actualizacion exitosa.";
     public static final String REGISTRO_ERROR = "Hubo un error al crear registro.";
 
 }

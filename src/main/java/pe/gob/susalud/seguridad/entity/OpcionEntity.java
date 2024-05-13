@@ -1,21 +1,24 @@
 package pe.gob.susalud.seguridad.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @Builder
 @Entity
 @Table(name = "SEG_OPCION", schema = "dbo")
 public class OpcionEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CODI_OPC")
     private Integer codiOpc;
 
-    @Column(name = "CODI_APL")
+    @Column(name = "CODI_APL", insertable = false, updatable = false)
     private Integer codiApl;
 
     @Column(name = "CODI_SIS")
@@ -42,7 +45,9 @@ public class OpcionEntity {
     @Column(name = "vURL_OPC")
     private String vUrlOpc;
 
-    public OpcionEntity() {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CODI_APL", referencedColumnName = "CODI_APL")
+    @JsonIgnore
+    AplicacionEntity aplicacion;
 
-    }
 }

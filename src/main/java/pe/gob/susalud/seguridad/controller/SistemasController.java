@@ -104,4 +104,17 @@ public class SistemasController {
         }
     }
 
+    @GetMapping("/aplicaciones/opciones")
+    public ResponseEntity<Object> SistemaAplicionesOpciones(@RequestParam Integer codiSis) {
+        try {
+            return responseHandler.success(sistemasService.SistemaAplicionesOpciones(codiSis));
+        } catch (MainException e) {
+            log.error("SistemaAplicionesOpciones", e.getMessage(), e);
+            return responseHandler.error(e);
+        } catch (Exception e) {
+            log.error("SistemaAplicionesOpciones", e.getMessage(), e);
+            return responseHandler.error();
+        }
+    }
+
 }

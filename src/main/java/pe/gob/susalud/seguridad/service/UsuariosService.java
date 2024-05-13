@@ -1,8 +1,5 @@
 package pe.gob.susalud.seguridad.service;
 
-import org.springframework.data.jpa.repository.query.Procedure;
-import org.springframework.data.repository.query.Param;
-import pe.gob.susalud.seguridad.constant.Constantes;
 import pe.gob.susalud.seguridad.dto.*;
 import pe.gob.susalud.seguridad.entity.*;
 import pe.gob.susalud.seguridad.utils.exceptions.MainException;
@@ -131,17 +128,17 @@ public interface UsuariosService {
 
     String ModificaPersona(PersonaEntity persona) throws MainException;
 
-    Integer NuevoUsuarioContacto(UsuarioContactoDto usuarioContactoDto) throws MainException;
+    String NuevoUsuarioContacto(UsuarioContactoDto usuarioContactoDto) throws MainException;
 
     String EliminaUsuarioCont(Integer codiPer, Integer codiUsu) throws MainException;
 
     List<UsuarioContactoAsigDto> ListadoUsuariosContactoAsig(Integer codiCorpUsu) throws MainException;
 
-    String ValidaUsuarioPwdCaduco(Integer codiUsu) throws MainException;
+    Boolean ValidaUsuarioPwdCaduco(Integer codiUsu) throws MainException;
 
-    String ValidaUsuarioAdmSeguridad(String vLoginUsu) throws MainException;
+    Boolean ValidaUsuarioAdmSeguridad(String vLoginUsu) throws MainException;
 
-    String ValidaUsuarioAdmSistema(String vLoginUsu) throws MainException;
+    Boolean ValidaUsuarioAdmSistema(String vLoginUsu) throws MainException;
 
     String NuevoUsuarioIntUbigeo(UsuarioIntUbigeoDto usuarioIntUbigeoDto) throws MainException;
 
@@ -149,7 +146,7 @@ public interface UsuariosService {
 
     String ModificaUsuarioIntUbigeo(UsuarioIntUbigeoDto usuarioIntUbigeoDto) throws MainException;
 
-    Integer NuevoUsuarioExtUbigeo(UsuarioExtUbigeoDto usuarioExtUbigeoDto) throws MainException;
+    String NuevoUsuarioExtUbigeo(UsuarioExtUbigeoDto usuarioExtUbigeoDto) throws MainException;
 
     UsuarioExtUbigeoDto DatosUsuarioExtUbigeo(Integer codiPer, Integer codiUsu) throws MainException;
 

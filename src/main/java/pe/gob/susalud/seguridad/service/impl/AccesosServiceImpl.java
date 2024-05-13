@@ -195,7 +195,6 @@ public class AccesosServiceImpl implements AccesosService {
                                     .nOrdenOpc((Integer) obj[8])
                                     .nEstaOpc((Integer) obj[9])
                                     .vUrlOpc(String.valueOf(obj[10]))
-                                    .accesos(String.valueOf(obj[11]))
                                     .build();
                         }
                 ).collect(Collectors.toList());

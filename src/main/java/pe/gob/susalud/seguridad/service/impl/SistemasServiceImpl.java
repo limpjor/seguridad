@@ -10,6 +10,7 @@ import pe.gob.susalud.seguridad.service.SistemasService;
 import pe.gob.susalud.seguridad.utils.exceptions.MainException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -95,5 +96,16 @@ public class SistemasServiceImpl implements SistemasService {
     public String EliminaSistema(Integer codiSis) throws MainException {
         sistemasRepository.EliminaSistema(codiSis);
         return Constantes.ELIMINACION_OK;
+    }
+
+    @Override
+    public SistemaEntity SistemaAplicionesOpciones(Integer codiSis) throws MainException {
+        Optional<SistemaEntity> optionalSistema = sistemasRepository.findById(codiSis);
+        if (optionalSistema.isPresent()) {
+            return optionalSistema.orElseThrow();
+        } else {
+            throw new MainException("No se encontró ningún Sistema con el ID: " + codiSis);
+        }
+
     }
 }

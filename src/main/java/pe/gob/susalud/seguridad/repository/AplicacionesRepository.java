@@ -29,7 +29,7 @@ public interface AplicacionesRepository extends JpaRepository<AplicacionEntity, 
                                  @Param("vusr_bd_apl") String vUsrBdApl, @Param("nesta_apl") Integer nEstaApl, @Param("norden_apl") Integer nOrdenApl);
 
     @Procedure(procedureName = Constantes.SP_MODIFICACION_APLICACION)
-    List<Object> ModificaAplicacion(@Param("codi_apl") Integer codiApl, @Param("codi_sis") Integer codiSis, @Param("codi_tbd") Integer codiTbd, @Param("vnomb_apl") String vNombApl,
+    void ModificaAplicacion(@Param("codi_apl") Integer codiApl, @Param("codi_sis") Integer codiSis, @Param("codi_tbd") Integer codiTbd, @Param("vnomb_apl") String vNombApl,
                                     @Param("vdesc_apl") String vDescApl, @Param("vserv_bd_apl") String vServBdApl, @Param("vnom_bd_apl") String vNomBdApl,
                                     @Param("vusr_bd_apl") String vUsrBdApl, @Param("nesta_apl") Integer nEstaApl, @Param("norden_apl") Integer nOrdenApl);
 

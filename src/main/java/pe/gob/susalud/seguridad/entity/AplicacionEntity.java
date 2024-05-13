@@ -1,13 +1,20 @@
 package pe.gob.susalud.seguridad.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "SEG_PERSONA", schema = "dbo")
+@Table(name = "SEG_APLICACION", schema = "dbo")
 public class AplicacionEntity {
 
     @Id
@@ -15,7 +22,7 @@ public class AplicacionEntity {
     @Column(name = "CODI_APL")
     private Integer codiApl;
 
-    @Column(name = "CODI_SIS")
+    @Column(name = "CODI_SIS", insertable = false, updatable = false)
     private Integer codiSis;
 
     @Column(name = "CODI_TBD")
@@ -41,4 +48,13 @@ public class AplicacionEntity {
 
     @Column(name = "nESTA_APL")
     private Integer nEstaApl;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CODI_SIS", referencedColumnName = "CODI_SIS")
+    @JsonIgnore
+    private SistemaEntity sistema;
+
+    @OneToMany(mappedBy = "aplicacion", cascade = CascadeType.ALL)
+    List<OpcionEntity> opciones;
+
 }

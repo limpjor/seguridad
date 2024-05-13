@@ -234,10 +234,10 @@ public interface UsuariosRepository extends JpaRepository<UsuarioEntity, Integer
 
     @Procedure(procedureName = Constantes.SP_NUEVO_USUARIO_CORP_SOL)
     Integer NuevoUsuarioCorpSol(@Param("codi_ent") Integer codiEnt, @Param("vape_pat_per") String vApePatPer, @Param("vape_mat_per") String vApeMatPer,
-                                     @Param("vnomb_per") String vNombPer, @Param("cdni_per") String cDniPer, @Param("vgrad_per") String vGradPer,
-                                     @Param("vini_per") String vIniPer, @Param("vtelefono") String vTelefono, @Param("vcargo") String vCargo,
-                                     @Param("vemail_per") String vEmailPer, @Param("vlogin_usu") String vLoginUsu, @Param("vpassw_usu") String vPasswUsu,
-                                     @Param("codi_tsv") Integer codiTsv, @Param("vdesc_req") String vDescReq, @Param("ntc") Integer ntc);
+                                @Param("vnomb_per") String vNombPer, @Param("cdni_per") String cDniPer, @Param("vgrad_per") String vGradPer,
+                                @Param("vini_per") String vIniPer, @Param("vtelefono") String vTelefono, @Param("vcargo") String vCargo,
+                                @Param("vemail_per") String vEmailPer, @Param("vlogin_usu") String vLoginUsu, @Param("vpassw_usu") String vPasswUsu,
+                                @Param("codi_tsv") Integer codiTsv, @Param("vdesc_req") String vDescReq, @Param("ntc") Integer ntc);
 
     @Procedure(procedureName = Constantes.SP_MODIFICA_PERSONA)
     void ModificaPersona(@Param("codi_ent") Integer codiEnt, @Param("vape_pat_per") String vApePatPer, @Param("vape_mat_per") String vApeMatPer,
@@ -246,7 +246,7 @@ public interface UsuariosRepository extends JpaRepository<UsuarioEntity, Integer
                          @Param("vcargo") String vCargo);
 
     @Procedure(procedureName = Constantes.SP_NUEVO_USUARIO_CONTACTO)
-    Integer NuevoUsuarioContacto(@Param("codi_corp_usu") Integer codiEnt, @Param("vape_pat_per") String vApePatPer, @Param("vape_mat_per") String vApeMatPer,
+    Integer NuevoUsuarioContacto(@Param("codi_corp_usu") Integer codiCorpUsu, @Param("vape_pat_per") String vApePatPer, @Param("vape_mat_per") String vApeMatPer,
                                  @Param("vnomb_per") String vNombPer, @Param("cdni_per") String cDniPer, @Param("vgrad_per") String vGradPer,
                                  @Param("vini_per") String vIniPer, @Param("vtelefono") String vTelefono, @Param("vcargo") String vCargo,
                                  @Param("vemail_per") String vEmailPer, @Param("vlogin_usu") String vLoginUsu, @Param("vpassw_usu") String vPasswUsu,
@@ -298,16 +298,16 @@ public interface UsuariosRepository extends JpaRepository<UsuarioEntity, Integer
 
     @Procedure(procedureName = Constantes.SP_MODIFICA_USUARIO_EXT_UBIGEO)
     void ModificaUsuarioExtUbigeo(@Param("codi_per") Integer codiPer, @Param("codi_usu") Integer codiUsu, @Param("codi_ent") Integer codiEnt,
-                                     @Param("vape_pat_per") String vApePatPer, @Param("vape_mat_per") String vApeMatPer, @Param("vnomb_per") String vNombPer,
-                                     @Param("cdni_per") String cDniPer, @Param("vemail_per") String vEmailPer, @Param("vlogin_usu") String vLoginUsu,
-                                     @Param("vpassw_usu") String vPasswUsu, @Param("nesta_usu") Integer nEstaUsu, @Param("vcargo") String vCargo,
-                                     @Param("vtelefono") String vTelefono, @Param("cDepto_per") String cDeptoPer, @Param("cProv_per") String cProvPer,
-                                     @Param("cDist_per") String cDistPer);
+                                  @Param("vape_pat_per") String vApePatPer, @Param("vape_mat_per") String vApeMatPer, @Param("vnomb_per") String vNombPer,
+                                  @Param("cdni_per") String cDniPer, @Param("vemail_per") String vEmailPer, @Param("vlogin_usu") String vLoginUsu,
+                                  @Param("vpassw_usu") String vPasswUsu, @Param("nesta_usu") Integer nEstaUsu, @Param("vcargo") String vCargo,
+                                  @Param("vtelefono") String vTelefono, @Param("cDepto_per") String cDeptoPer, @Param("cProv_per") String cProvPer,
+                                  @Param("cDist_per") String cDistPer);
 
     @Procedure(procedureName = Constantes.SP_VALIDA_USUARIO_ADM_SISTEMA_LOGIN)
-    List<Object> ValidaUsuarioAdmSistemaLogin(@Param("vlogin_usu") String vLoginUsu);
+    Integer ValidaUsuarioAdmSistemaLogin(@Param("vlogin_usu") String vLoginUsu);
 
     @Procedure(procedureName = Constantes.SP_VALIDA_USU_SIST_SEGUR)
-    List<Object> ValidaUsuSistSegur(@Param("vlogin_usu") String vLoginUsu);
+    Integer ValidaUsuSistSegur(@Param("vlogin_usu") String vLoginUsu);
 
 }

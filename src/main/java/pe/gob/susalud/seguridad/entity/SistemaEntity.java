@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -27,6 +29,9 @@ public class SistemaEntity {
 
     @Column(name = "nESTA_SIS")
     private Integer nEstaSis;
+
+    @OneToMany(mappedBy = "sistema", cascade = CascadeType.ALL)
+    private List<AplicacionEntity> aplicaciones;
 
     public SistemaEntity() {
     }

@@ -1020,7 +1020,33 @@ public class UsuariosServiceImpl implements UsuariosService {
                             Object[] obj = (Object[]) result;
                             return LoginDto
                                     .loginDtoBuilder()
-                                    //falta
+                                    .vLoginUsu(String.valueOf(obj[0]))
+                                    .codiUsu((Integer) obj[1])
+                                    .vCargUsu(String.valueOf(obj[2]))
+                                    .codiPer((Integer) obj[3])
+                                    .codiEnt((Integer) obj[4])
+                                    .vNombLargoPer(String.valueOf(obj[5]))
+                                    .vApePatPer(String.valueOf(obj[6]))
+                                    .vApeMatPer(String.valueOf(obj[7]))
+                                    .vNombPer(String.valueOf(obj[8]))
+                                    .cDniPer(String.valueOf(obj[9]))
+                                    .vGradPer(String.valueOf(obj[10]))
+                                    .vIniPer(String.valueOf(obj[11]))
+                                    .vEmailPer(String.valueOf(obj[12]))
+                                    .dFecRegiPer(String.valueOf(obj[13]))
+                                    .dFecActPer(String.valueOf(obj[14]))
+                                    .vTelefono(String.valueOf(obj[15]))
+                                    .vCargo(String.valueOf(obj[16]))
+                                    .codiPer((Integer) obj[17])
+                                    .cDeptoPer(String.valueOf(obj[18]))
+                                    .cProvPer(String.valueOf(obj[19]))
+                                    .cdistPer(String.valueOf(obj[20]))
+                                    .dFecNacPer(String.valueOf(obj[21]))
+                                    .cSexoPer(String.valueOf(obj[22]))
+                                    .cTipoDocPer(String.valueOf(obj[23]))
+                                    .vLoginUsuRegiPer(String.valueOf(obj[24]))
+                                    .vLoginUsuActPer(String.valueOf(obj[25]))
+                                    .vEmailPer2(String.valueOf(obj[26]))
                                     .build();
                         }
                 )
@@ -1029,96 +1055,307 @@ public class UsuariosServiceImpl implements UsuariosService {
 
     @Transactional(readOnly = true)
     public List<DatosReqEntity> BuscaDatosRequer(String codiReq) throws MainException {
-        return List.of();
+        List<Object> resultList = usuariosRepository.BuscaDatosRequer(codiReq);
+        return resultList
+                .stream()
+                .map(
+                        result -> {
+                            Object[] obj = (Object[]) result;
+                            return DatosReqEntity
+                                    .builder()
+                                    .codiReq(String.valueOf(obj[0]))
+                                    .vNombPer(String.valueOf(obj[1]))
+                                    .codiEnt((Integer) obj[2])
+                                    .vRazSocEnt(String.valueOf(obj[3]))
+                                    .nEstaAdq((Integer) obj[4])
+                                    .build();
+                        }
+                )
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<UsuarioEnvioDto> Envio(String pEmail) throws MainException {
-        return List.of();
+        List<Object> resultList = usuariosRepository.Envio(pEmail);
+        return resultList
+                .stream()
+                .map(
+                        result -> {
+                            Object[] obj = (Object[]) result;
+                            return UsuarioEnvioDto
+                                    .builder()
+                                    .nombre(String.valueOf(obj[0]))
+                                    .vLoginUsu(String.valueOf(obj[1]))
+                                    .vPasswUsu(String.valueOf(obj[2]))
+                                    .cInternoUsu(String.valueOf(obj[3]))
+                                    .build();
+                        }
+                )
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public List<UsuarioMailDto> BuscaMail(String pEmail) throws MainException {
-        return List.of();
+        List<Object> resultList = usuariosRepository.BuscaMail(pEmail);
+        return resultList
+                .stream()
+                .map(
+                        result -> {
+                            Object[] obj = (Object[]) result;
+                            return UsuarioMailDto
+                                    .builder()
+                                    .codiUsu((Integer) obj[0])
+                                    .codiPer((Integer) obj[1])
+                                    .vLoginUsu(String.valueOf(obj[2]))
+                                    .vPasswUsu(String.valueOf(obj[3]))
+                                    .vEmailPer(String.valueOf(obj[4]))
+                                    .codiCorpUsu((Integer) obj[5])
+                                    .vNombPer(String.valueOf(obj[6]))
+                                    .build();
+                        }
+                )
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public String NuevoUsuarioCorpSol(UsuarioCorpSolDto usuarioCorpSolDto) throws MainException {
-        return "";
+        Integer result = usuariosRepository.NuevoUsuarioCorpSol(
+                usuarioCorpSolDto.getCodiEnt(), usuarioCorpSolDto.getVApePatPer(), usuarioCorpSolDto.getVApeMatPer(),
+                usuarioCorpSolDto.getVNombPer(), usuarioCorpSolDto.getCDniPer(), usuarioCorpSolDto.getVGradPer(),
+                usuarioCorpSolDto.getVIniPer(), usuarioCorpSolDto.getVTelefono(), usuarioCorpSolDto.getVCargo(),
+                usuarioCorpSolDto.getVEmailPer(), usuarioCorpSolDto.getVLoginUsu(), usuarioCorpSolDto.getVPasswUsu(),
+                usuarioCorpSolDto.getCodiTsv(), usuarioCorpSolDto.getVDescReq(), usuarioCorpSolDto.getNtc()
+        );
+        if (result == 1) return Constantes.REGISTRO_OK;
+        else throw new MainException(Constantes.REGISTRO_ERROR);
     }
 
     @Transactional(readOnly = true)
     public String ModificaPersona(PersonaEntity persona) throws MainException {
-        return "";
+        usuariosRepository.ModificaPersona(
+                persona.getCodiEnt(), persona.getVApePatPer(), persona.getVApeMatPer(),
+                persona.getVNombPer(), persona.getCDniPer(), persona.getVGradPer(),
+                persona.getVIniPer(), persona.getVEmailPer(), persona.getVTelefono(),
+                persona.getVCargo()
+        );
+        return Constantes.MODIFICACION_OK;
     }
 
     @Transactional(readOnly = true)
-    public Integer NuevoUsuarioContacto(UsuarioContactoDto usuarioContactoDto) throws MainException {
-        return 0;
+    public String NuevoUsuarioContacto(UsuarioContactoDto usuarioContactoDto) throws MainException {
+        Integer result = usuariosRepository.NuevoUsuarioContacto(
+                usuarioContactoDto.getCodiCorpUsu(), usuarioContactoDto.getVApePatPer(), usuarioContactoDto.getVApeMatPer(),
+                usuarioContactoDto.getVNombPer(), usuarioContactoDto.getCDniPer(), usuarioContactoDto.getVGradPer(),
+                usuarioContactoDto.getVIniPer(), usuarioContactoDto.getVTelefono(), usuarioContactoDto.getVCargo(),
+                usuarioContactoDto.getVEmailPer(), usuarioContactoDto.getVLoginUsu(), usuarioContactoDto.getVPasswUsu(),
+                usuarioContactoDto.getVDescReq(), usuarioContactoDto.getCodiTsv(), usuarioContactoDto.getNtc(),
+                usuarioContactoDto.getTipoIngreso()
+        );
+        if (result == 1) return Constantes.REGISTRO_OK;
+        else throw new MainException(Constantes.REGISTRO_ERROR);
     }
 
     @Transactional(readOnly = true)
     public String EliminaUsuarioCont(Integer codiPer, Integer codiUsu) throws MainException {
-        return "";
+        usuariosRepository.EliminaUsuarioCont(codiPer, codiUsu);
+        return Constantes.ELIMINACION_OK;
     }
 
     @Transactional(readOnly = true)
     public List<UsuarioContactoAsigDto> ListadoUsuariosContactoAsig(Integer codiCorpUsu) throws MainException {
-        return List.of();
+        List<Object> resultList = usuariosRepository.ListadoUsuariosContactoAsig(codiCorpUsu);
+        return resultList
+                .stream()
+                .map(
+                        result -> {
+                            Object[] obj = (Object[]) result;
+                            return UsuarioContactoAsigDto
+                                    .usuarioContactoAsigDtoBuilder()
+                                    .codiPer((Integer) obj[0])
+                                    .codiEnt((Integer) obj[1])
+                                    .vNombLargoPer(String.valueOf(obj[2]))
+                                    .vApePatPer(String.valueOf(obj[3]))
+                                    .vApeMatPer(String.valueOf(obj[4]))
+                                    .vNombPer(String.valueOf(obj[5]))
+                                    .cDniPer(String.valueOf(obj[6]))
+                                    .vGradPer(String.valueOf(obj[7]))
+                                    .vIniPer(String.valueOf(obj[8]))
+                                    .vEmailPer(String.valueOf(obj[9]))
+                                    .dFecRegiPer(String.valueOf(obj[10]))
+                                    .dFecActPer(String.valueOf(obj[11]))
+                                    .vTelefono(String.valueOf(obj[12]))
+                                    .vCargo(String.valueOf(obj[13]))
+                                    .codiGpe((Integer) obj[14])
+                                    .cDeptoPer(String.valueOf(obj[15]))
+                                    .cProvPer(String.valueOf(obj[16]))
+                                    .cDistPer(String.valueOf(obj[17]))
+                                    .dFecNacPer(String.valueOf(obj[18]))
+                                    .cSexoPer(String.valueOf(obj[19]))
+                                    .cTipoDocPer(String.valueOf(obj[20]))
+                                    .vLoginUsuRegiPer(String.valueOf(obj[21]))
+                                    .vEmailPer2(String.valueOf(obj[22]))
+                                    .codiUsu((Integer) obj[23])
+                                    .codiAre(String.valueOf(obj[24]))
+                                    .codiPer((Integer) obj[25])
+                                    .vLoginUsu(String.valueOf(obj[26]))
+                                    .vPasswUsu(String.valueOf(obj[27]))
+                                    .vCargUsu(String.valueOf(obj[28]))
+                                    .nEstaUsu((Integer) obj[29])
+                                    .cInternoUsu(String.valueOf(obj[30]))
+                                    .dFecRegiUsu(String.valueOf(obj[31]))
+                                    .dFecActUsu(String.valueOf(obj[32]))
+                                    .eliminar((Integer) obj[33])
+                                    .codigo((Integer) obj[34])
+                                    .codiCorpUsu((Integer) obj[35])
+                                    .build();
+                        }
+                )
+                .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public String ValidaUsuarioPwdCaduco(Integer codiUsu) throws MainException {
-        return "";
+    public Boolean ValidaUsuarioPwdCaduco(Integer codiUsu) throws MainException {
+        Integer result = usuariosRepository.ValidaUsuarioPwdCaduco(codiUsu);
+        return (result != 0);
     }
 
     @Transactional(readOnly = true)
-    public String ValidaUsuarioAdmSeguridad(String vLoginUsu) throws MainException {
-        return "";
+    public Boolean ValidaUsuarioAdmSeguridad(String vLoginUsu) throws MainException {
+        Integer result = usuariosRepository.ValidaUsuarioAdmSeguridad(vLoginUsu);
+        return (result != 0);
     }
 
     @Transactional(readOnly = true)
-    public String ValidaUsuarioAdmSistema(String vLoginUsu) throws MainException {
-        return "";
+    public Boolean ValidaUsuarioAdmSistema(String vLoginUsu) throws MainException {
+        Integer result = usuariosRepository.ValidaUsuarioAdmSistema(vLoginUsu);
+        return (result != 0);
     }
 
     @Transactional(readOnly = true)
     public String NuevoUsuarioIntUbigeo(UsuarioIntUbigeoDto usuarioIntUbigeoDto) throws MainException {
-        return "";
+        Integer result = usuariosRepository.NuevoUsuarioIntUbigeo(
+                usuarioIntUbigeoDto.getVNombLargoPer(), usuarioIntUbigeoDto.getVApePatPer(), usuarioIntUbigeoDto.getVApeMatPer(),
+                usuarioIntUbigeoDto.getVNombPer(), usuarioIntUbigeoDto.getVGradPer(), usuarioIntUbigeoDto.getVIniPer(),
+                usuarioIntUbigeoDto.getVEmailPer(), usuarioIntUbigeoDto.getCodiAre(), usuarioIntUbigeoDto.getVLoginUsu(),
+                usuarioIntUbigeoDto.getVCargUsu(), usuarioIntUbigeoDto.getNEstaUsu(), usuarioIntUbigeoDto.getCDeptoPer(),
+                usuarioIntUbigeoDto.getCProvPer(), usuarioIntUbigeoDto.getCDistPer()
+        );
+        if (result == 1) return Constantes.REGISTRO_OK;
+        else throw new MainException(Constantes.REGISTRO_ERROR);
     }
 
     @Transactional(readOnly = true)
     public UsuarioIntUbigeoDto DatosUsuarioIntUbigeo(Integer codiPer, Integer codiUsu) throws MainException {
-        return null;
+        List<Object> resultList = usuariosRepository.DatosUsuarioIntSol(codiUsu);
+        Object[] obj = (resultList.isEmpty()) ? null : (Object[]) resultList.get(0);
+        return (resultList.isEmpty()) ?
+                new UsuarioIntUbigeoDto()
+                :
+                UsuarioIntUbigeoDto
+                        .usuarioIntUbigeoDtoBuilder()
+                        .codiPer((Integer) obj[0])
+                        .codiUsu((Integer) obj[1])
+                        .vNombLargoPer(String.valueOf(obj[2]))
+                        .vApePatPer(String.valueOf(obj[3]))
+                        .vApeMatPer(String.valueOf(obj[4]))
+                        .vNombPer(String.valueOf(obj[5]))
+                        .vGradPer(String.valueOf(obj[6]))
+                        .vIniPer(String.valueOf(obj[7]))
+                        .vEmailPer(String.valueOf(obj[8]))
+                        .cDeptoPer(String.valueOf(obj[9]))
+                        .cProvPer(String.valueOf(obj[10]))
+                        .cDistPer(String.valueOf(obj[11]))
+                        .codiAre(String.valueOf(obj[12]))
+                        .vLoginUsu(String.valueOf(obj[13]))
+                        .vCargUsu(String.valueOf(obj[14]))
+                        .nEstaUsu((Integer) obj[15])
+                        .dFecRegiUsu(String.valueOf(obj[16]))
+                        .dFecActUsu(String.valueOf(obj[17]))
+                        .cInternoUsu(String.valueOf(obj[18]))
+                        .build();
     }
 
     @Transactional(readOnly = true)
     public String ModificaUsuarioIntUbigeo(UsuarioIntUbigeoDto usuarioIntUbigeoDto) throws MainException {
-        return "";
+        usuariosRepository.ModificaUsuarioIntUbigeo(
+                usuarioIntUbigeoDto.getCodiPer(), usuarioIntUbigeoDto.getCodiUsu(), usuarioIntUbigeoDto.getVNombLargoPer(),
+                usuarioIntUbigeoDto.getVApePatPer(), usuarioIntUbigeoDto.getVApeMatPer(), usuarioIntUbigeoDto.getVNombPer(),
+                usuarioIntUbigeoDto.getVGradPer(), usuarioIntUbigeoDto.getVIniPer(), usuarioIntUbigeoDto.getVEmailPer(),
+                usuarioIntUbigeoDto.getCodiAre(), usuarioIntUbigeoDto.getVLoginUsu(), usuarioIntUbigeoDto.getVCargUsu(),
+                usuarioIntUbigeoDto.getNEstaUsu(), usuarioIntUbigeoDto.getCDeptoPer(), usuarioIntUbigeoDto.getCProvPer(),
+                usuarioIntUbigeoDto.getCDistPer()
+        );
+        return Constantes.MODIFICACION_OK;
     }
 
     @Transactional(readOnly = true)
-    public Integer NuevoUsuarioExtUbigeo(UsuarioExtUbigeoDto usuarioExtUbigeoDto) throws MainException {
-        return 0;
+    public String NuevoUsuarioExtUbigeo(UsuarioExtUbigeoDto usuarioExtUbigeoDto) throws MainException {
+        Integer result = usuariosRepository.NuevoUsuarioExtUbigeo(
+                usuarioExtUbigeoDto.getCodiEnt(), usuarioExtUbigeoDto.getVApePatPer(), usuarioExtUbigeoDto.getVApeMatPer(),
+                usuarioExtUbigeoDto.getVNombPer(), usuarioExtUbigeoDto.getCDniPer(), usuarioExtUbigeoDto.getVEmailPer(),
+                usuarioExtUbigeoDto.getVLoginUsu(), usuarioExtUbigeoDto.getVPasswUsu(), usuarioExtUbigeoDto.getNEstaUsu(),
+                usuarioExtUbigeoDto.getVCargo(), usuarioExtUbigeoDto.getVTelefono(), usuarioExtUbigeoDto.getCDeptoPer(),
+                usuarioExtUbigeoDto.getCProvPer(), usuarioExtUbigeoDto.getCDistPer()
+        );
+        if (result == 1) return Constantes.REGISTRO_OK;
+        else throw new MainException(Constantes.REGISTRO_ERROR);
     }
 
     @Transactional(readOnly = true)
     public UsuarioExtUbigeoDto DatosUsuarioExtUbigeo(Integer codiPer, Integer codiUsu) throws MainException {
-        return null;
+        List<Object> resultList = usuariosRepository.DatosUsuarioIntSol(codiUsu);
+        Object[] obj = (resultList.isEmpty()) ? null : (Object[]) resultList.get(0);
+        return (resultList.isEmpty()) ?
+                new UsuarioExtUbigeoDto()
+                :
+                UsuarioExtUbigeoDto
+                        .usuarioExtUbigeoDtoBuilder()
+                        .codiPer((Integer) obj[0])
+                        .codiUsu((Integer) obj[1])
+                        .vNombLargoPer(String.valueOf(obj[2]))
+                        .vApePatPer(String.valueOf(obj[3]))
+                        .vApeMatPer(String.valueOf(obj[4]))
+                        .vNombPer(String.valueOf(obj[5]))
+                        .cDniPer(String.valueOf(obj[6]))
+                        .vEmailPer(String.valueOf(obj[7]))
+                        .codiEnt((Integer) obj[8])
+                        .cDeptoPer(String.valueOf(obj[9]))
+                        .cProvPer(String.valueOf(obj[10]))
+                        .cDistPer(String.valueOf(obj[11]))
+                        .vLoginUsu(String.valueOf(obj[12]))
+                        .vPasswUsu(String.valueOf(obj[13]))
+                        .vCargUsu(String.valueOf(obj[14]))
+                        .nEstaUsu((Integer) obj[15])
+                        .dFecRegiUsu(String.valueOf(obj[16]))
+                        .dFecActUsu(String.valueOf(obj[17]))
+                        .vTelefono(String.valueOf(obj[18]))
+                        .vCargo(String.valueOf(obj[19]))
+                        .dFecFinPasswUsu(String.valueOf(obj[20]))
+                        .build();
     }
 
     @Transactional(readOnly = true)
     public String ModificaUsuarioExtUbigeo(UsuarioExtUbigeoDto usuarioExtUbigeoDto) throws MainException {
-        return "";
+        usuariosRepository.ModificaUsuarioExtUbigeo(
+                usuarioExtUbigeoDto.getCodiPer(), usuarioExtUbigeoDto.getCodiUsu(), usuarioExtUbigeoDto.getCodiEnt(),
+                usuarioExtUbigeoDto.getVApePatPer(), usuarioExtUbigeoDto.getVApeMatPer(), usuarioExtUbigeoDto.getVNombPer(),
+                usuarioExtUbigeoDto.getCDniPer(), usuarioExtUbigeoDto.getVEmailPer(), usuarioExtUbigeoDto.getVLoginUsu(),
+                usuarioExtUbigeoDto.getVPasswUsu(), usuarioExtUbigeoDto.getNEstaUsu(), usuarioExtUbigeoDto.getVCargo(),
+                usuarioExtUbigeoDto.getVTelefono(), usuarioExtUbigeoDto.getCDeptoPer(),usuarioExtUbigeoDto.getCProvPer(),
+                usuarioExtUbigeoDto.getCDistPer()
+        );
+        return Constantes.MODIFICACION_OK;
     }
 
     @Transactional(readOnly = true)
     public Boolean ValidaUsuarioAdmSistemaLogin(String vLoginUsu) throws MainException {
-        return null;
+        Integer result = usuariosRepository.ValidaUsuarioAdmSistemaLogin(vLoginUsu);
+        return (result != 0);
     }
 
     @Transactional(readOnly = true)
     public Boolean ValidaUsuSistSegur(String vLoginUsu) throws MainException {
-        return null;
+        Integer result = usuariosRepository.ValidaUsuSistSegur(vLoginUsu);
+        return (result != 0);
     }
 }

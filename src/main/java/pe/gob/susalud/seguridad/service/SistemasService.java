@@ -19,4 +19,5 @@ public interface SistemasService {
 
     String EliminaSistema(Integer codiSis) throws MainException;
 
+    SistemaEntity SistemaAplicionesOpciones(Integer codiSis) throws MainException;
 }
