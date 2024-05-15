@@ -117,4 +117,17 @@ public class SistemasController {
         }
     }
 
+    @GetMapping("/aplicaciones/opciones/listado")
+    public ResponseEntity<Object> ListadoSistemaAplicionesOpciones() {
+        try {
+            return responseHandler.success(sistemasService.ListadoSistemaAplicionesOpciones());
+        } catch (MainException e) {
+            log.error("ListadoSistemaAplicionesOpciones", e.getMessage(), e);
+            return responseHandler.error(e);
+        } catch (Exception e) {
+            log.error("ListadoSistemaAplicionesOpciones", e.getMessage(), e);
+            return responseHandler.error();
+        }
+    }
+
 }

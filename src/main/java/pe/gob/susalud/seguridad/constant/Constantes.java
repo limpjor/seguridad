@@ -196,5 +196,7 @@ public class Constantes {
     public static final String ELIMINACION_OK = "Eliminacion exitosa.";
     public static final String MODIFICACION_OK = "Actualizacion exitosa.";
     public static final String REGISTRO_ERROR = "Hubo un error al crear registro.";
+    public static final String REGISTROS_ID_ERROR = "No se encontró ningún registro con el ID:";
+    public static final String LISTA_VACIA = "No se encontraron registros.";
 
 }

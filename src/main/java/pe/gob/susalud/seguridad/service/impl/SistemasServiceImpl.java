@@ -104,8 +104,17 @@ public class SistemasServiceImpl implements SistemasService {
         if (optionalSistema.isPresent()) {
             return optionalSistema.orElseThrow();
         } else {
-            throw new MainException("No se encontró ningún Sistema con el ID: " + codiSis);
+            throw new MainException(Constantes.REGISTROS_ID_ERROR + codiSis);
         }
 
+    }
+
+    @Override
+    public List<SistemaEntity> ListadoSistemaAplicionesOpciones() throws MainException {
+        List<SistemaEntity> listSistemas = sistemasRepository.findAll();
+        if (listSistemas.isEmpty()) {
+            throw new MainException(Constantes.LISTA_VACIA);
+        }
+        return listSistemas;
     }
 }
